@@ -16,6 +16,9 @@ root = Tk()
 import os
 os.system('cls' if os.name == 'nt' else 'clear')
 
+def close_window():
+	root.destroy()
+
 def get_podcast_xml():
 	# Getting Information from pod1.xml : 
 	xml_feed1 = 'http://www.southamptonchurch.co.uk/pod1.xml'
@@ -32,7 +35,6 @@ def get_podcast_xml():
 	soup2 = bs.BeautifulSoup(sauce2,'xml')
 	faithlife = soup2.find('item') #storing first <item> as "faithlife"
 	faithlife = str(faithlife) #converting beautifulsoup object into a string
-	time.sleep(1)
 	label = Label(root, text = "Step 2/5 Complete - Information collected from faithlife").grid(row=3,column=1,sticky=W)
 
 	# CREATING THE XML FILE:
@@ -48,7 +50,6 @@ def get_podcast_xml():
 
 	filename = desktop + created_name
 	# filename = 'C:/Users/Olive/Desktop/' + created_name
-	time.sleep(1)
 	label = Label(root, text = "Step 3/5 Complete - Identified if windows or non windows").grid(row=4,column=1,sticky=W)
 
 	text_file = open(filename,"w")
@@ -123,20 +124,23 @@ def get_podcast_xml():
 	text_file.write('</rss>\n')
 
 	text_file.close()
-	time.sleep(1)
 	label = Label(root, text = "Step 4/5 Complete - new pod1 xml file written to desktop").grid(row=5,column=1,sticky=W)
 
 	# Uploading to server
-	ftp = ftplib.FTP('ftp host:hidden')  
-	ftp.login('username: hidden','password:hidden')
+	ftp = ftplib.FTP('[host hidden]')  
+	ftp.login('[user hidden]','[pw hidden]')
 	ftp.cwd('/studies') 
 	myfile = open(filename,'rb')
 	ftp.storbinary('STOR ' + 'pod1.xml', myfile) #previously used 'storlines', but had a maximum line size of 8192. stbordinary reads and stores in binary 
 	ftp.quit
 
-	time.sleep(5)
 	label = Label(root, text = "Step 5/5 Complete - uploaded to southamptonchurch.co.uk server").grid(row=6,column=1,sticky=W)
+	label = Label(root, text = " ").grid(row=7,column=1)
+	label = Label(root, text = "PROGRAM COMPLETE - you can now close").grid(row=8,column=1,sticky=W)
+	Button(root,text="Click to close window",command=close_window).grid(row=9,column=1,sticky=W)
 
-label = Label(root, text="Two requirements before this program is run: 1. The latets sermon is uploaded from proclaim 2. Internet Connection").grid(row=0,column=1,sticky=W)
-Button(root,text="Run program to update pod1.xml and upload to server",command=get_podcast_xml).grid(row=1,column=1,sticky=W)
+root.title('Calvary Southampton: XML Writer and Uploader')
+root.iconbitmap(r'C:/users/calvary/desktop/cs.ico')
+label = Label(root, text="Two requirements before this program is run:   1. The latest sermon is uploaded from proclaim   2. An Internet Connection").grid(row=0,column=1,sticky=W)
+Button(root,text="Click to Run program to update pod1.xml and upload to server",command=get_podcast_xml).grid(row=1,column=1,sticky=W)
 root.mainloop()
