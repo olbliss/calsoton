@@ -128,7 +128,7 @@ def get_podcast_xml():
 
 	# Uploading to server
 	ftp = ftplib.FTP('home680705515.1and1-data.host')  
-	ftp.login('u89215005-ollie','N0rw1chc1ty!')        #ollie's credentials, created by Simon
+	ftp.login('uxxxxxxx (hidden as public)','password here (hidden as public)')        #ollie's credentials, created by Simon
 	ftp.cwd('/studies') 
 	myfile = open(filename,'rb')
 	ftp.storbinary('STOR ' + 'pod1.xml', myfile) #previously used 'storlines', but had a maximum line size of 8192. stbordinary reads and stores in binary 
