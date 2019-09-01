@@ -140,7 +140,7 @@ def get_podcast_xml():
 	Button(root,text="Click to close window",command=close_window).grid(row=9,column=1,sticky=W)
 
 root.title('Calvary Southampton: XML Writer and Uploader')
-root.iconbitmap(r'C:/users/calvary/desktop/cs.ico')
+#root.iconbitmap(r'C:/users/calvary/desktop/cs.ico')
 label = Label(root, text="Two requirements before this program is run:   1. The latest sermon is uploaded from proclaim   2. An Internet Connection").grid(row=0,column=1,sticky=W)
 Button(root,text="Click to Run program to update pod1.xml and upload to server",command=get_podcast_xml).grid(row=1,column=1,sticky=W)
 root.mainloop()
